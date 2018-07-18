@@ -17,7 +17,10 @@ LIBS += -L$$PWD/pcapplusplus-17.11-windows-vs2015/x64/Release -lCommon++ -lPacke
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    npcap.cpp
+    npcap.cpp \
+    npcap_open.cpp \
+    npcap_handler.cpp \
+    npcap_process.cpp
 
 HEADERS += \
         mainwindow.h \
