@@ -10,4 +10,7 @@ http://www.tcpdump.org/pcap.html
 
 https://github.com/mfontanini/libtins
 https://github.com/seladb/PcapPlusPlus
+https://github.com/pellegre/libcrafter
+https://github.com/slankdev/libpgen
+https://github.com/aol/moloch
 ```
