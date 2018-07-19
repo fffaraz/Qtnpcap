@@ -58,6 +58,9 @@ void MainWindow::npcap_newPacket(QDateTime timestamp, QString proto, QString sad
     if(isSame(daddr)) key.dport = 0;
     else key.dport = dport;
 
+    // https://en.wikipedia.org/wiki/Multicast_address
+    if(daddr.startsWith("239.") || daddr.startsWith("224.  0.") ) key.sport = 0;
+
     m_mutex.lock();
     m_map[key] = m_map[key] + len;
     // TODO: packet count map
