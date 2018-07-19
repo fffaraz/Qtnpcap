@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 
+#include "npcap.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -17,6 +19,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    Npcap npcap;
 };
 
 #endif // MAINWINDOW_H

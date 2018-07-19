@@ -18,9 +18,9 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     npcap.cpp \
-    npcap_open.cpp \
     npcap_handler.cpp \
-    npcap_process.cpp
+    npcap_process.cpp \
+    npcap_run.cpp
 
 HEADERS += \
         mainwindow.h \

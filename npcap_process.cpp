@@ -20,7 +20,7 @@ void Npcap::process_packet(pcpp::Packet &parsedPacket, const pcap_pkthdr *header
     if(ipv4Layer == NULL)
     {
         //printf("Something went wrong, couldn't find IPv4 layer\n");
-        printf("%s    %s \n", timevalToString(header->ts).c_str(), ethernetLayer->getNextLayer()->toString().c_str());
+        printf("%s    %s    len: %4d \n", timevalToString(header->ts).c_str(), ethernetLayer->getNextLayer()->toString().c_str(), header->len);
         QByteArray ba((const char *)pkt_data, header->caplen);
         qDebug() << ba;
         return;

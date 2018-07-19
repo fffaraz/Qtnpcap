@@ -1,6 +1,6 @@
 #include "npcap.h"
 
-Npcap::Npcap(QObject *parent) : QObject(parent)
+Npcap::Npcap(QObject *parent) : QThread(parent)
 {
     // Retrieve the device list
     if(pcap_findalldevs(&alldevs, errbuf) == -1)
@@ -13,6 +13,11 @@ Npcap::Npcap(QObject *parent) : QObject(parent)
 
 Npcap::~Npcap()
 {
+    if(isRunning())
+    {
+        pcap_breakloop(adhandle);
+        wait();
+    }
     if(alldevs != nullptr) pcap_freealldevs(alldevs);
 }
 
@@ -22,9 +27,9 @@ void Npcap::print()
     if(devs.size() == 0) printf("\nNo interfaces found! Make sure WinPcap is installed.\n");
     for(int i = 0; i < devs.size(); ++i)
     {
-        printf("%d. %s", i + 1, devs[i]->name);
-        if(devs[i]->description) printf(" (%s)\n", devs[i]->description);
-        else printf(" (No description available)\n");
+        printf("%d. %s ", i + 1, devs[i]->name);
+        if(devs[i]->description) printf("%s\n", devs[i]->description);
+        else printf("No description available.\n");
     }
 }
 

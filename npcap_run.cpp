@@ -1,6 +1,6 @@
 #include "npcap.h"
 
-void Npcap::open(int inum)
+void Npcap::run()
 {
     if(inum < 0 || inum >= devs.size())
     {
@@ -9,12 +9,12 @@ void Npcap::open(int inum)
     }
 
     // Open the device and the adapter
-    pcap_t *adhandle = pcap_open_live(devs[inum]->name,	// name of the device
-                                      65536,            // portion of the packet to capture.65536 grants that the whole packet will be captured on all the MACs.
-                                      1,                // promiscuous mode (nonzero means promiscuous)
-                                      1000,             // read timeout
-                                      errbuf            // error buffer
-                                      );
+    adhandle = pcap_open_live(devs[inum]->name,	// name of the device
+                              65536,            // portion of the packet to capture.65536 grants that the whole packet will be captured on all the MACs.
+                              1,                // promiscuous mode (nonzero means promiscuous)
+                              1000,             // read timeout
+                              errbuf            // error buffer
+                              );
     if(adhandle == NULL)
     {
         fprintf(stderr, "\nUnable to open the adapter. %s is not supported by WinPcap\n", devs[inum]->name);
