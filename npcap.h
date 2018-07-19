@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QThread>
 #include <QVector>
+#include <QDateTime>
 #include <QDebug>
 
 #include <pcap.h>
@@ -21,6 +22,9 @@ public:
     int inum = -1;
     QVector<pcap_if_t *> devs; // list of devices
 
+signals:
+    void newPacket(QDateTime timestamp, QString proto, QString saddr, u_short sport, QString daddr, u_short dport, bpf_u_int32 len);
+
 private:
     pcap_if_t *alldevs  = nullptr;
     pcap_t    *adhandle = nullptr;
@@ -28,7 +32,7 @@ private:
 
     virtual void run() override;
 
-    static void packet_handler(u_char *param, const pcap_pkthdr *header, const u_char *pkt_data);
+    static void packet_handler(u_char *param,       const pcap_pkthdr *header, const u_char *pkt_data);
     void process_packet(pcpp::Packet &parsedPacket, const pcap_pkthdr *header, const u_char *pkt_data);
 
     static std::string protocolTypeToString(pcpp::ProtocolType protocolType);

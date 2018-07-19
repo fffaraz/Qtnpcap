@@ -21,19 +21,19 @@ void Npcap::process_packet(pcpp::Packet &parsedPacket, const pcap_pkthdr *header
     {
         //printf("Something went wrong, couldn't find IPv4 layer\n");
         printf("%s    %s    len: %4d \n", timevalToString(header->ts).c_str(), ethernetLayer->getNextLayer()->toString().c_str(), header->len);
-        QByteArray ba((const char *)pkt_data, header->caplen);
-        qDebug() << ba;
+        //QByteArray ba((const char *)pkt_data, header->caplen); qDebug() << ba;
         return;
     }
 
     std::string saddr = ipv4ToString(ipv4Layer->getSrcIpAddress().toInt());
     std::string daddr = ipv4ToString(ipv4Layer->getDstIpAddress().toInt());
-    u_short sport = 0;
-    u_short dport = 0;
+    u_short     sport = 0;
+    u_short     dport = 0;
 
     // get the Transport layer
     pcpp::Layer* transportLayer = ipv4Layer->getNextLayer();
     pcpp::ProtocolType protoType = transportLayer->getProtocol();
+    std::string proto = protocolTypeToString(protoType);
 
     if(protoType == pcpp::TCP)
     {
@@ -48,6 +48,9 @@ void Npcap::process_packet(pcpp::Packet &parsedPacket, const pcap_pkthdr *header
         dport = ntohs(udpLayer->getUdpHeader()->portDst);
     }
 
+    emit newPacket(QDateTime::currentDateTime(), QString::fromStdString(proto), QString::fromStdString(saddr), sport, QString::fromStdString(daddr), dport, header->len);
+
     // print timestamp and length of the packet and ip addresses and ports
-    printf("%s    %-4s    %s : %5d  ->  %s : %5d    len: %4d \n", timevalToString(header->ts).c_str(), protocolTypeToString(protoType).c_str(), saddr.c_str(), sport, daddr.c_str(), dport, header->len);
+    if(protoType != pcpp::TCP && protoType != pcpp::UDP)
+        printf("%s    %-4s    %s : %5d  ->  %s : %5d    len: %4d \n", timevalToString(header->ts).c_str(), proto.c_str(), saddr.c_str(), sport, daddr.c_str(), dport, header->len);
 }
