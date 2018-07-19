@@ -155,5 +155,5 @@ std::string Npcap::timevalToString(timeval ts)
     strftime(timestr, sizeof(timestr), "%H:%M:%S", ltime);
     char buffer[32];
     snprintf(buffer, sizeof(buffer), "%s,%.6d", timestr, ts.tv_usec);
-    return std::string(buffer, sizeof(buffer));
+    return std::string(buffer);
 }

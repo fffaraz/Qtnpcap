@@ -101,7 +101,7 @@ void MainWindow::on_btnRefresh_clicked()
     m_string.clear();
     for(int i = 0; i < list.size(); ++i)
     {
-       m_string.append(list[i].first + " | " + QString::number(list[i].second / 1024).rightJustified(10) + "\n");
+        m_string.append(list[i].first + " | " + QString::number(list[i].second / 1024).rightJustified(10) + "\n");
     }
     ui->plainTextEdit->clear();
     ui->plainTextEdit->appendPlainText(m_string);
