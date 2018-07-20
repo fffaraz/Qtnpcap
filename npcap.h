@@ -10,6 +10,7 @@
 #include <pcap.h>
 #include <Packet.h>
 #include <IPv4Layer.h>
+#include <ArpLayer.h>
 
 class Npcap : public QThread
 {
@@ -37,6 +38,7 @@ private:
     static void packet_handler(u_char *param,       const pcap_pkthdr *header, const u_char *pkt_data);
     void process_packet(pcpp::Packet &parsedPacket, const pcap_pkthdr *header, const u_char *pkt_data);
     void process_ipv4  (pcpp::IPv4Layer *ipv4Layer, const pcap_pkthdr *header, const u_char *pkt_data);
+    void process_arp   (pcpp::ArpLayer  *arpLayer,  const pcap_pkthdr *header, const u_char *pkt_data);
 
     static QString protocolTypeToString(pcpp::ProtocolType protocolType);
     static std::string ipv4ToString(int ip);
