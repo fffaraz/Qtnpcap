@@ -37,7 +37,7 @@ struct QPairSecondComparer
 
 void MainWindow::timer_timeout()
 {
-    on_btnRefresh_clicked();
+    //on_btnRefresh_clicked();
 }
 
 void MainWindow::npcap_newPacket(QDateTime timestamp, QString proto, QString saddr, u_short sport, QString daddr, u_short dport, bpf_u_int32 len)
@@ -50,12 +50,12 @@ void MainWindow::npcap_newPacket(QDateTime timestamp, QString proto, QString sad
 
     key.saddr = saddr;
 
-    if(isSame(saddr)) key.sport = 0;
+    if(isSame(saddr) && sport >= 49152) key.sport = 0;
     else key.sport = sport;
 
     key.daddr = daddr;
 
-    if(isSame(daddr)) key.dport = 0;
+    if(isSame(daddr) && dport >= 49152) key.dport = 0;
     else key.dport = dport;
 
     // https://en.wikipedia.org/wiki/Multicast_address
