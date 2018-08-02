@@ -13,4 +13,7 @@ https://github.com/seladb/PcapPlusPlus
 https://github.com/pellegre/libcrafter
 https://github.com/slankdev/libpgen
 https://github.com/aol/moloch
+
+Malicious traffic detection system
+https://github.com/stamparm/maltrail
 ```
