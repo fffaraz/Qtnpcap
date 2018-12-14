@@ -19,7 +19,7 @@ class MainWindow;
 
 struct Mykey
 {
-    quint64 ts;
+    qint64  ts;
     QString proto;
     QString saddr;
     quint16 sport;
@@ -31,7 +31,7 @@ struct Mykey
         QString r;
         r.append(QDateTime::fromSecsSinceEpoch(ts).toString("yyyy-MM-dd HH"));
         r.append(separator);
-        r.append(proto.leftJustified(4));
+        r.append(proto.leftJustified(5));
         r.append(separator);
         r.append(saddr);
         r.append(separator);
@@ -41,6 +41,10 @@ struct Mykey
         r.append(separator);
         r.append(QString::number(dport).rightJustified(5));
         return r;
+    }
+    static QString headers()
+    {
+        return "yyyy-MM-dd HH | Proto | Src             | Port  | Dest            | Port  |  KiloBytes \n";
     }
 };
 
@@ -66,7 +70,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:

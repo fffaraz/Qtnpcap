@@ -104,6 +104,7 @@ void MainWindow::on_btnRefresh_clicked()
     std::sort(list.begin(), list.end(), QPairSecondComparer());
 
     m_string.clear();
+    m_string.append(Mykey::headers());
     for(int i = 0; i < list.size(); ++i) m_string.append(list[i].first + " | " + QString::number(list[i].second / 1024).rightJustified(10) + "\n");
 
     ui->plainTextEdit->clear();
